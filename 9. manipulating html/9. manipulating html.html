@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>Timer</title>
+
+    <style>
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            margin: 0;
+
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        #timer {
+            font-size: 6rem;
+            font-weight: bolder;
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Time since you visited this page:</h1>
+    <p id="timer">00:00</p>
+
+    <script>
+        let timer = document.getElementById("timer");
+        let time = 0;
+
+        setInterval(() => {
+            time++;
+
+            timer.innerText = `${Math.floor(time / 60).toString().padStart(2, "0")}:${(time % 60).toString().padStart(2, "0")}`;
+        }, 1000);
+    </script>
+</body>
+
+</html>
