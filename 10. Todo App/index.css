@@ -1,0 +1,78 @@
+html, body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    margin: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+
+    width: 80%;
+    margin: auto;
+
+    padding: 2rem;
+}
+
+#new-todo {
+    height: 3rem;
+
+    font-size: 1.5rem;
+
+    border: solid 0.1rem cornflowerblue;
+    border-radius: 0.5rem;
+
+    padding: 0.5rem;
+    box-sizing: border-box;
+
+    transition: box-shadow 0.1s;
+}
+
+#new-todo:focus {
+    outline: none;
+    box-shadow: 0.1rem 0.1rem 0.5rem rgba(0, 0, 0, 0.5);
+}
+
+#new-todo::placeholder {
+    color: rgb(103, 103, 103);
+}
+
+#todos {
+    list-style-type: none;
+
+    padding-left: 0.5rem;
+}
+
+#todos > li {
+    display: flex;
+    gap: 0.5rem;
+}
+
+#todos > li.done {
+    text-decoration: line-through;
+}
+
+#todos > li * {
+    text-decoration: inherit;
+}
+
+.existing-todo {
+    height: 1.5rem;
+    width: 100%;
+
+    font-size: 1rem;
+
+    margin: 0.05rem;
+
+    border: none;
+    border-radius: 0.5rem;
+
+    padding: 0.2rem;
+    box-sizing: content-box;
+}
+
+.existing-todo:focus {
+    margin: 0;  
+    border: solid 0.05rem cornflowerblue;
+}
