@@ -1,7 +1,7 @@
 const newTodoInput = document.getElementById("new-todo");
 const todos = document.getElementById("todos");
 
-newTodoInput.addEventListener("keypress", e => {
+newTodoInput.addEventListener("keydown", e => {
     if (e.key != "Enter") return;
     
     let todo = e.target.value;
