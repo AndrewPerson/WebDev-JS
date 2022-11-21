@@ -16,10 +16,11 @@ else {
             "Authorization": `Bearer ${token.access_token}`
         }
     })
-    .catch(e => {
-        location.href = LOGIN_URL;
-    })
     .then(async response => {
+        if (!response.ok) {
+            location.href = LOGIN_URL;
+        }
+
         let dailyTimetable = await response.json();
         let dailyTimetableElement = document.getElementById("daily-timetable");
 
