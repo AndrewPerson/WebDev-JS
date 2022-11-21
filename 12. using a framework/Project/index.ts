@@ -1,4 +1,4 @@
-import { html, css, LitElement, PropertyValueMap } from "lit";
+import { html, css, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
 
 @customElement("todo-app")
@@ -46,11 +46,11 @@ export class TodoApp extends LitElement {
         }
     `;
 
-    todos: string[] = JSON.parse(localStorage.getItem("todos") || "[]");
+    todos: string[] = JSON.parse(localStorage.getItem("todos") ?? "[]");
 
     AddTodo(e: KeyboardEvent)
     {
-        if (e.key !== "Enter") return;
+        if (e.key != "Enter") return;
 
         this.todos.push((e.target as HTMLInputElement).value);
 
@@ -68,9 +68,9 @@ export class TodoApp extends LitElement {
             <input class="new-todo" placeholder="Add a todo item..." @keydown="${this.AddTodo}">
 
             <ul class="todos">
-                ${this.todos.map(todo => html`
+                ${this.todos.map((todo, index) => html`
                 <li>
-                    <todo-item todo="${todo}"></todo-item>
+                    <todo-item todo="${todo}" index="${index}"></todo-item>
                 </li>
                 `)}
             </ul>
@@ -128,6 +128,8 @@ export class TodoItem extends LitElement {
     UpdateTodo(e: InputEvent) {
         var app = this.parentElement as TodoApp;
         app.todos[this.index] = (e.target as HTMLInputElement).value;
+
+        app.requestUpdate();
     }
 
     render() {

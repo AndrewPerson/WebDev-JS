@@ -1,4 +1,3 @@
-"use strict";
 (() => {
   var __defProp = Object.defineProperty;
   var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
@@ -624,10 +623,10 @@
   var TodoApp = class extends s4 {
     constructor() {
       super(...arguments);
-      this.todos = JSON.parse(localStorage.getItem("todos") || "[]");
+      this.todos = JSON.parse(localStorage.getItem("todos") ?? "[]");
     }
     AddTodo(e6) {
-      if (e6.key !== "Enter")
+      if (e6.key != "Enter")
         return;
       this.todos.push(e6.target.value);
       e6.target.value = "";
@@ -641,9 +640,9 @@
             <input class="new-todo" placeholder="Add a todo item..." @keydown="${this.AddTodo}">
 
             <ul class="todos">
-                ${this.todos.map((todo) => $`
+                ${this.todos.map((todo, index) => $`
                 <li>
-                    <todo-item todo="${todo}"></todo-item>
+                    <todo-item todo="${todo}" index="${index}"></todo-item>
                 </li>
                 `)}
             </ul>
@@ -702,6 +701,7 @@
     UpdateTodo(e6) {
       var app = this.parentElement;
       app.todos[this.index] = e6.target.value;
+      app.requestUpdate();
     }
     render() {
       return $`
