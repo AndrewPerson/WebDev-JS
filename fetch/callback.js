@@ -11,13 +11,12 @@ fetch("https://student.sbhs.net.au/api/token", {
         redirect_uri: "http://localhost:5500/callback.html"
     })
 }).then(async response => {
-    if (response.status < 200 || response.status >= 300) {
-        //Something went wrong
-        
-    }
-    else {
+    if (response.ok) {
         //We have a token!
         localStorage.setItem("Token", await response.text());
         location.pathname = "/index.html";
+    }
+    else {
+        //Something went wrong
     }
 });
