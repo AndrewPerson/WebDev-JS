@@ -6,8 +6,8 @@ fetch("https://student.sbhs.net.au/api/token", {
     body: new URLSearchParams({
         code: code,
         grant_type: "authorization_code",
-        client_id: "IDForge",
-        client_secret: "Lhs_SgNUTyfsrQ7QMQUfSTPBpwQ",
+        client_id: CLIENT_ID,
+        client_secret: CLIENT_SECRET,
         redirect_uri: "http://localhost:5500/callback.html"
     })
 }).then(async response => {

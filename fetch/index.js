@@ -1,4 +1,4 @@
-const LOGIN_URL = `https://student.sbhs.net.au/api/authorize?response_type=code&scope=all-ro&state=abc&client_id=IDForge&redirect_uri=http://localhost:5500/callback.html`;
+const LOGIN_URL = `https://student.sbhs.net.au/api/authorize?response_type=code&scope=all-ro&state=abc&client_id=${CLIENT_ID}&redirect_uri=http://localhost:5500/callback.html`;
 
 const bellTemplate = document.getElementById("bell").content;
 const periodTemplate = document.getElementById("period").content;
@@ -98,8 +98,8 @@ async function refreshToken(refresh_token) {
         body: new URLSearchParams({
             refresh_token: refresh_token,
             grant_type: "refresh_token",
-            client_id: "IDForge",
-            client_secret: "Lhs_SgNUTyfsrQ7QMQUfSTPBpwQ"
+            client_id: CLIENT_ID,
+            client_secret: CLIENT_SECRET
         })
     });
 
