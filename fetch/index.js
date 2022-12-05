@@ -12,10 +12,12 @@ else {
     let token = JSON.parse(localStorage.getItem("Token"));
     
     updateDailytimetable(token);
+
+    setInterval(updateTimer, 1000);
 }
 
 async function updateDailytimetable(token) {
-    let response = fetch("https://student.sbhs.net.au/api/timetable/daytimetable.json", {
+    let response = await fetch("https://student.sbhs.net.au/api/timetable/daytimetable.json", {
         headers: {
             "Authorization": `Bearer ${token.access_token}`
         }
@@ -30,7 +32,10 @@ async function updateDailytimetable(token) {
 }
 
 function renderDailytimetable(dailyTimetable) {
-    let dailyTimetableElement = document.getElementById("daily-timetable");
+    let bellsElement = document.getElementById("bells");
+    for (let child of bellsElement.children) {
+        child.remove();
+    }
 
     if (Array.isArray(dailyTimetable.roomVariations)) dailyTimetable.roomVariations = {};
     if (Array.isArray(dailyTimetable.classVariations)) dailyTimetable.classVariations = {};
@@ -71,7 +76,7 @@ function renderDailytimetable(dailyTimetable) {
                 room.classList.remove("changed");
             }
 
-            dailyTimetableElement.appendChild(periodElement);
+            bellsElement.appendChild(periodElement);
         }
         else {
             let bellElement = bellTemplate.cloneNode(true);
@@ -79,7 +84,7 @@ function renderDailytimetable(dailyTimetable) {
             bellElement.querySelector(".name").textContent = bell.bellDisplay;
             bellElement.querySelector(".time").textContent = bell.time;
 
-            dailyTimetableElement.appendChild(bellElement);
+            bellsElement.appendChild(bellElement);
         }
     }
 }
@@ -88,7 +93,7 @@ async function refreshToken(refresh_token) {
     var response = await fetch("https://student.sbhs.net.au/api/token", {
         method: "POST",
         headers: {
-            "Content-Type": "application/x-www-url-encoded"
+            "Content-Type": "application/x-www-form-urlencoded"
         },
         body: new URLSearchParams({
             refresh_token: refresh_token,
@@ -102,8 +107,14 @@ async function refreshToken(refresh_token) {
         let token = await response.text();
 
         localStorage.setItem("Token", token);
+
+        updateDailytimetable(token);
     }
     else {
         location.href = LOGIN_URL;
     }
+}
+
+function updateTimer(dailyTimetable) {
+
 }
